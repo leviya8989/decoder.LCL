@@ -1,10 +1,325 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" >
 <head>
-    <meta charset="UTF-8">
-    <title>Elcome Page</title>
+  <meta charset="UTF-8">
+  <title>Untitled</title>
+  
+
 </head>
 <body>
-    <h1>elcome</h1>
+<!-- partial:index.partial.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Flat Symbol Encryptor / Decryptor</title>
+<!-- Inter font from Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+<style>
+  /* Base & typography */
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+      Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    background: #f0f4f8;
+    margin: 0; 
+    padding: 40px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #333e57;
+    min-height: 100vh;
+  }
+  h2 {
+    font-weight: 700;
+    font-size: 2rem;
+    margin-bottom: 30px;
+    color: #1b2a41;
+    text-align: center;
+  }
+  .container {
+    width: 100%;
+    max-width: 900px;
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 10px 20px rgb(25 42 70 / 0.1);
+    padding: 30px 40px 40px;
+    box-sizing: border-box;
+  }
+  label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #3a5068;
+    font-size: 1.1rem;
+  }
+  select {
+    padding: 12px 18px;
+    font-size: 1.1rem;
+    border-radius: 12px;
+    border: 1.8px solid #c4d0e0;
+    margin-bottom: 25px;
+    width: 180px;
+    cursor: pointer;
+    background: #f9fbfd;
+    transition: border-color 0.3s ease;
+    color: #2e4057;
+  }
+  select:hover, select:focus {
+    border-color: #4a90e2;
+    outline: none;
+    background: #ffffff;
+  }
+  textarea {
+    width: 100%;
+    height: 190px;
+    font-size: 1.2rem;
+    padding: 18px 22px;
+    border-radius: 14px;
+    border: 1.8px solid #d2dae8;
+    resize: none;
+    background: #fafbfc;
+    box-sizing: border-box;
+    font-weight: 500;
+    line-height: 1.5;
+    color: #34495e;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    font-family: 'Inter', sans-serif;
+  }
+  textarea:focus {
+    border-color: #4a90e2;
+    outline: none;
+    box-shadow: 0 0 8px #4a90e2aa;
+    background: #fff;
+  }
+  .actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+  }
+  button {
+    font-size: 1.1rem;
+    padding: 14px 28px;
+    border: none;
+    background: #4a90e2;
+    color: white;
+    border-radius: 14px;
+    cursor: pointer;
+    width: 140px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    box-shadow: 0 6px 12px rgb(74 144 226 / 0.4);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  }
+  button:hover {
+    background: #3a78c2;
+    box-shadow: 0 8px 16px rgb(58 120 194 / 0.55);
+  }
+  .key-toggle {
+    margin-top: 35px;
+    cursor: pointer;
+    background: #e4ebf5;
+    padding: 14px 22px;
+    border-radius: 14px;
+    font-weight: 700;
+    color: #486791;
+    user-select: none;
+    width: fit-content;
+    box-shadow: 0 3px 6px rgb(72 103 145 / 0.2);
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  .key-toggle:hover {
+    background: #d0dbf1;
+    color: #36537d;
+  }
+  .key-box {
+    margin-top: 15px;
+    max-height: 300px;
+    overflow-y: auto;
+    background: #f7f9fc;
+    border-radius: 14px;
+    padding: 18px 30px;
+    display: none;
+    box-sizing: border-box;
+    box-shadow: inset 0 1px 4px rgb(0 0 0 / 0.05);
+  }
+  .key-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(85px, 1fr));
+    gap: 16px;
+  }
+  .key-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 16px;
+    background: white;
+    border-radius: 14px;
+    box-shadow: 0 1px 6px rgb(0 0 0 / 0.08);
+    font-size: 1.3rem;
+    color: #2c3e50;
+  }
+  .letter {
+    font-weight: 700;
+    font-size: 1.15rem;
+  }
+  @media (max-width: 520px) {
+    textarea {
+      height: 150px;
+      font-size: 1rem;
+    }
+    button, select {
+      width: 100%;
+    }
+    .actions {
+      flex-direction: column;
+      gap: 15px;
+    }
+  }
+</style>
+</head>
+<body>
+
+<h2>Decoder of the LCL</h2>
+
+<div class="container" role="main">
+  <label for="modeSelect">Select Mode:</label>
+  <select id="modeSelect" aria-label="Select encrypt or decrypt mode">
+    <option value="encrypt">Encrypt (English → Symbols)</option>
+    <option value="decrypt">Decrypt (Symbols → English)</option>
+  </select>
+
+  <label for="inputText" id="inputLabel">Enter English text here...</label>
+  <textarea id="inputText" placeholder="Type or paste text here"></textarea>
+
+  <div class="actions">
+    <button id="processBtn" aria-label="Process encrypt or decrypt">Process</button>
+  </div>
+
+  <label for="outputText" id="outputLabel" style="margin-top: 30px;">Output</label>
+  <textarea id="outputText" readonly placeholder="Result will appear here..."></textarea>
+
+  <div class="key-toggle" id="toggleKeyBtn" role="button" tabindex="0" aria-pressed="false" aria-controls="keyBox">Show Symbol Key ▼</div>
+
+  <div class="key-box" id="keyBox" aria-live="polite" aria-atomic="true">
+    <div class="key-grid" id="keyGrid"></div>
+  </div>
+</div>
+
+<script>
+  const symbolKey = {
+    A: '▲', B: '●', C: '■', D: '◆', E: '✦', F: '✪', G: '☀',
+    H: '☁', I: '☂', J: '☃', K: '☄', L: '✈', M: '✉', N: '⚓',
+    O: '♠', P: '♣', Q: '♥', R: '♦', S: '✓', T: '✕', U: '☯',
+    V: '☮', W: '☘', X: '☢', Y: '☣', Z: '✇',
+    '0': '○', '1': '△', '2': '▽', '3': '◇', '4': '☆',
+    '5': '✩', '6': '✪', '7': '☉', '8': '☾', '9': '☽'
+  };
+
+  const reverseKey = {};
+  for (const [key, symbol] of Object.entries(symbolKey)) {
+    reverseKey[symbol] = key;
+  }
+
+  const modeSelect = document.getElementById('modeSelect');
+  const inputText = document.getElementById('inputText');
+  const outputText = document.getElementById('outputText');
+  const processBtn = document.getElementById('processBtn');
+  const keyBox = document.getElementById('keyBox');
+  const toggleKeyBtn = document.getElementById('toggleKeyBtn');
+  const inputLabel = document.getElementById('inputLabel');
+  const outputLabel = document.getElementById('outputLabel');
+
+  function populateKeyBox() {
+    const keyGrid = document.getElementById('keyGrid');
+    keyGrid.innerHTML = '';
+    for (const [key, symbol] of Object.entries(symbolKey)) {
+      const div = document.createElement('div');
+      div.className = 'key-item';
+      div.innerHTML = `<span class="letter">${key}</span> → <span>${symbol}</span>`;
+      keyGrid.appendChild(div);
+    }
+  }
+  populateKeyBox();
+
+  function encrypt(text) {
+    return text.toUpperCase().split('').map(char => {
+      if (symbolKey[char]) return symbolKey[char];
+      if (char === ' ') return ' ';
+      return char;
+    }).join('');
+  }
+
+  function decrypt(text) {
+    const symbols = Object.values(symbolKey).sort((a, b) => b.length - a.length);
+    let result = '';
+    let i = 0;
+    while (i < text.length) {
+      if (text[i] === ' ') {
+        result += ' ';
+        i++;
+        continue;
+      }
+      let matched = false;
+      for (const sym of symbols) {
+        if (text.startsWith(sym, i)) {
+          result += reverseKey[sym];
+          i += sym.length;
+          matched = true;
+          break;
+        }
+      }
+      if (!matched) {
+        result += '?';
+        i++;
+      }
+    }
+    return result;
+  }
+
+  processBtn.addEventListener('click', () => {
+    const mode = modeSelect.value;
+    const input = inputText.value;
+    if (!input.trim()) {
+      outputText.value = '';
+      return;
+    }
+    if (mode === 'encrypt') {
+      outputText.value = encrypt(input);
+    } else {
+      outputText.value = decrypt(input);
+    }
+  });
+
+  toggleKeyBtn.addEventListener('click', () => {
+    if (keyBox.style.display === 'block') {
+      keyBox.style.display = 'none';
+      toggleKeyBtn.textContent = 'Show Symbol Key ▼';
+      toggleKeyBtn.setAttribute('aria-pressed', 'false');
+    } else {
+      keyBox.style.display = 'block';
+      toggleKeyBtn.textContent = 'Hide Symbol Key ▲';
+      toggleKeyBtn.setAttribute('aria-pressed', 'true');
+    }
+  });
+
+  modeSelect.addEventListener('change', () => {
+    if (modeSelect.value === 'encrypt') {
+      inputLabel.textContent = 'Enter English text here...';
+      inputText.placeholder = 'Type or paste English text and numbers here';
+      outputLabel.textContent = 'Output (Symbols)';
+    } else {
+      inputLabel.textContent = 'Enter Symbols here...';
+      inputText.placeholder = 'Paste symbols to decrypt here';
+      outputLabel.textContent = 'Output (English)';
+    }
+    outputText.value = '';
+    inputText.value = '';
+  });
+</script>
+
+</body>
+</html>
+<!-- partial -->
+  
 </body>
 </html>
